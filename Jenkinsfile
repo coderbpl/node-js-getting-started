@@ -4,9 +4,7 @@ tools {nodejs "nodenv"}
 stages {
  stage("Code Checkout from GitHub") {
   steps {
-   git branch: 'master',
-    credentialsId: 'gitlab_access_token',
-    url: 'http://your-ip-here:10080/root/test-project.git'
+  checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'a6f4081c-63d6-441b-b8de-c99fd34f8502', url: 'https://github.com/coderbpl/node-js-getting-started.git']]])
   }
  }
    stage('Code Quality Check via SonarQube') {
