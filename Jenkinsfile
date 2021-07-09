@@ -14,22 +14,14 @@ stages {
        script {
        def scannerHome = tool 'sonarqube';
            withSonarQubeEnv("sonarqube-container") {
-           sh "${tool("sonarqube")}/bin/sonar-scanner \
-           -Dsonar.projectKey=test-node-js \
-           -Dsonar.sources=. \
-           -Dsonar.css.node=. \
-           -Dsonar.host.url=http://your-ip-here:9000 \
-           -Dsonar.login=your-generated-token-from-sonarqube-container"
+            nodejs(nodeJSInstallationName: 'nodenv'){
+           sh "npm install"
+             sh "npm run sonar"
+           }
                }
            }
        }
    }
-   stage("Install Project Dependencies") {
-   steps {
-       nodejs(nodeJSInstallationName: 'nodenv'){
-           sh "npm install"
-           }
-       }
-   }
+   
 }
 }
