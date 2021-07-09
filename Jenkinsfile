@@ -1,6 +1,6 @@
 pipeline {
 agent any
-tools {nodejs "nodenv"}
+tools {nodejs "node-env"}
 stages {
  stage("Code Checkout from GitHub") {
   steps {
@@ -12,7 +12,7 @@ stages {
        script {
        def scannerHome = tool 'sonarqube';
            withSonarQubeEnv("sonarqube-container") {
-            nodejs(nodeJSInstallationName: 'nodenv'){
+            nodejs(nodeJSInstallationName: 'node-env'){
            sh "npm install"
              sh "npm run sonar"
            }
